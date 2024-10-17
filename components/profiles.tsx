@@ -38,7 +38,7 @@ export default function Profiles() {
     {"name" : "Muhammad Ridzwan Aulia Azzikra",
       "nim" : "1101223064",
       "role" : "AI Developer",
-      "github" : "https://github.com/mraazzikra",
+      "github" : "https://github.com/Emraaaa",
       "image" : "/ridzwan.jpg"
     },
   ]
