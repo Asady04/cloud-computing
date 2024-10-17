@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import {
   Navbar as NextUINavbar,
   NavbarContent,
@@ -27,7 +27,15 @@ import {
   Logo,
 } from "@/components/icons";
 import Image from "next/image";
-import { Avatar } from "@nextui-org/react";
+import {
+  Avatar,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+} from "@nextui-org/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 
 export const Navbar = () => {
   const searchInput = (
@@ -56,8 +64,15 @@ export const Navbar = () => {
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
-            <Image src="/apexlogo.webp" width={35} height={35} alt="kapan predator"/>
-            <p className="font-bold text-red-800 dark:text-red-300 text-inherit">Kelompok 3</p>
+            <Image
+              src="/apexlogo.webp"
+              width={35}
+              height={35}
+              alt="kapan predator"
+            />
+            <p className="font-bold text-red-800 dark:text-red-300 text-inherit">
+              Kelompok 3
+            </p>
           </NextLink>
         </NavbarBrand>
         <ul className="hidden lg:flex gap-4 justify-start ml-2">
@@ -66,7 +81,7 @@ export const Navbar = () => {
               <NextLink
                 className={clsx(
                   linkStyles({ color: "foreground" }),
-                  "data-[active=true]:text-primary data-[active=true]:font-medium",
+                  "data-[active=true]:text-primary data-[active=true]:font-medium"
                 )}
                 color="foreground"
                 href={item.href}
@@ -91,8 +106,33 @@ export const Navbar = () => {
         {/* <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem> */}
         <NavbarItem className="hidden md:flex">
           <div className="flex justify-between gap-3 items-center">
-            <div className="items-center text-default-700 text-right"><p className="font-semibold">Hey, Al-baghdadi</p><p className="text-sm">jamaluddin@gmail.com</p></div>
-            <Avatar size="md" src="/user-avatar-happy.svg"/>
+            <div className="items-center text-default-700 text-right">
+              <p className="font-semibold">Hey, Al-baghdadi</p>
+            </div>
+            <Dropdown>
+              <DropdownTrigger>
+                <Avatar size="md" src="/user-avatar-happy.svg" />
+              </DropdownTrigger>
+              <DropdownMenu aria-label="Static Actions">
+                <DropdownItem key="new">
+                  <div>
+                    <p className="font-semibold">Jamal Albaghdadi</p>
+                    <p className="text-sm">jamaluddin@gmail.com</p>
+                    <p className="text-sm">1122334455</p>
+                  </div>
+                </DropdownItem>
+                <DropdownItem
+                  key="logout"
+                  className="text-danger"
+                  color="danger"
+                >
+                  <div className="flex gap-1 items-center">
+                    <p>Log Out</p>
+                    <FontAwesomeIcon icon={faArrowRightFromBracket} />
+                  </div>
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
           </div>
         </NavbarItem>
       </NavbarContent>

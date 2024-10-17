@@ -1,3 +1,4 @@
+"use client";
 import Profiles from "@/components/profiles";
 
 export default function AboutPage() {

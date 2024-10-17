@@ -8,6 +8,10 @@ import { Providers } from "./providers";
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
+import NavbarWrapper from "@/components/navbarWrapper";
+import { config } from '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/fontawesome-svg-core/styles.css'
+config.autoAddCss = false
 
 export const metadata: Metadata = {
   title: {
@@ -27,6 +31,7 @@ export const viewport: Viewport = {
   ],
 };
 
+
 export default function RootLayout({
   children,
 }: {
@@ -38,12 +43,12 @@ export default function RootLayout({
       <body
         className={clsx(
           "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable,
+          fontSans.variable
         )}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
           <div className="relative flex flex-col h-screen">
-            <Navbar />
+            <NavbarWrapper />
             <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
               {children}
             </main>
@@ -53,8 +58,7 @@ export default function RootLayout({
                 className="flex items-center gap-1 text-current"
                 href="https://nextui-docs-v2.vercel.app?utm_source=next-app-template"
                 title="nextui.org homepage"
-              >
-              </Link>
+              ></Link>
             </footer>
           </div>
         </Providers>
