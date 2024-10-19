@@ -38,6 +38,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation"; // Import useRouter
+import { fetchUserData, logout } from "@/services/authService";
 
 export const Navbar = () => {
   const router = useRouter(); // Initialize router
@@ -51,35 +52,54 @@ export const Navbar = () => {
   // State untuk menyimpan data pengguna
   const [userData, setUserData] = useState<UserData | null>(null); // Definisikan tipe
 
-
   // Ambil data pengguna dari API
+  // useEffect(() => {
+  //   const fetchUserData = async () => {
+  //     try {
+  //       const response = await fetch('https://cc-backend-weld.vercel.app/api/user', {
+  //         headers: {
+  //           'Authorization': `Bearer ${localStorage.getItem('authToken')}`, // Pastikan menambahkan token di sini
+  //         },
+  //       });
+
+  //       if (!response.ok) {
+  //         throw new Error('Network response was not ok');
+  //       }
+
+  //       const data = await response.json();
+  //       console.log('Fetched user data:', data); // Cek data yang diterima
+  //       setUserData(data); // Simpan data pengguna ke state
+  //     } catch (error) {
+  //       console.error('Error fetching user data:', error);
+  //     }
+  //   };
+
+  //   fetchUserData();
+  // }, []);
   useEffect(() => {
-    const fetchUserData = async () => {
+    const getUserData = async () => {
       try {
-        const response = await fetch('http://localhost:4000/api/user', {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('authToken')}`, // Pastikan menambahkan token di sini
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
+        const data = await fetchUserData();
+        if (data != null) {
+          setUserData(data);
         }
-
-        const data = await response.json();
-        console.log('Fetched user data:', data); // Cek data yang diterima
-        setUserData(data); // Simpan data pengguna ke state
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        console.error("Error fetching user data:", error);
       }
     };
 
-    fetchUserData();
+    getUserData();
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem('authToken'); // Hapus token dari localStorage
-    router.push('/login'); // Redirect ke halaman login
+  const handleLogout = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await logout();
+      // Redirect to the dashboard or homepage after successful registration
+      router.push("/login");
+    } catch (err) {}
+    // localStorage.removeItem('authToken'); // Hapus token dari localStorage
+    // router.push('/login'); // Redirect ke halaman login
   };
 
   const searchInput = (
@@ -169,7 +189,18 @@ export const Navbar = () => {
                       <>
                         <p className="font-semibold">{userData.name}</p>
                         <p className="text-sm">{userData.email}</p>
-                        {userData.role == 'ADMIN' ? (<p className="text-sm font-semibold text-red-800">{userData.role}</p>) : (<div><p className="text-sm">{userData.nim}</p><p className="text-sm font-semibold text-green-800">{userData.role}</p></div>)}
+                        {userData.role == "admin" ? (
+                          <p className="text-sm font-semibold text-red-800">
+                            {userData.role}
+                          </p>
+                        ) : (
+                          <div>
+                            <p className="text-sm">{userData.nim}</p>
+                            <p className="text-sm font-semibold text-green-800">
+                              {userData.role}
+                            </p>
+                          </div>
+                        )}
                       </>
                     ) : (
                       <>

@@ -12,6 +12,7 @@ import {
 import React, { useState, useEffect } from "react";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from 'next/navigation'; // Pastikan ini diimpor dari 'next/navigation'
+import { register } from "@/services/authService";
 
 export default function PricingPage() {
   const [isVisible, setIsVisible] = useState(false);
@@ -31,47 +32,57 @@ export default function PricingPage() {
   }, []);
 
   const toggleVisibility = () => setIsVisible(!isVisible);
-
-  const handleRegister = async () => {
-    if (!mounted) return; // Hanya jalankan jika komponen sudah mounted
-    setLoading(true);
-    setError('');
-
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
     try {
-      const response = await fetch('http://localhost:4000/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          name,
-          nim,
-          password,
-          confirmPassword,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error);
-      }
-
-      // Tampilkan notifikasi sukses
-      window.alert('Akun berhasil dibuat');
-
-      // Redirect ke halaman login
-      router.push('/login');
-      
-    } catch (error) {
-      console.error(error); // Log error untuk debugging
-      const errorMessage = error instanceof Error ? error.message : String(error);
-      setError(errorMessage); // Set error yang lebih aman
-    } finally {
-      setLoading(false);
+      await register(email, password, name, "user", nim);
+      // Redirect to the dashboard or homepage after successful registration
+      router.push("/");
+    } catch (err) {
+      setError(`Failed to register: ${err}.`);
     }
   };
+
+  // const handleRegister = async () => {
+  //   if (!mounted) return; // Hanya jalankan jika komponen sudah mounted
+  //   setLoading(true);
+  //   setError('');
+
+  //   try {
+  //     const response = await fetch('https://cc-backend-weld.vercel.app/register', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         email,
+  //         name,
+  //         nim,
+  //         password,
+  //         confirmPassword,
+  //       }),
+  //     });
+
+  //     const data = await response.json();
+
+  //     if (!response.ok) {
+  //       throw new Error(data.error);
+  //     }
+
+  //     // Tampilkan notifikasi sukses
+  //     window.alert('Akun berhasil dibuat');
+
+  //     // Redirect ke halaman login
+  //     router.push('/login');
+      
+  //   } catch (error) {
+  //     console.error(error); // Log error untuk debugging
+  //     const errorMessage = error instanceof Error ? error.message : String(error);
+  //     setError(errorMessage); // Set error yang lebih aman
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   return (
     <div className="w-full md:w-1/2 lg:w-1/3 px-4 md:px-0">

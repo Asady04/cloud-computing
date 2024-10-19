@@ -1,26 +1,34 @@
 'use client'
-import { useEffect } from "react";
-import { useRouter } from "next/navigation"; // Gunakan next/navigation untuk navigasi
-import { usePathname } from "next/navigation";
-import React from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { auth } from "../firebaseConfig"; // Or wherever auth is imported
 
-export default function LoginChecker() {
-    const router = useRouter();
-    const pathname = usePathname();
-    
-    useEffect(() => {
-        // Cek apakah user sudah login, misalnya cek token di localStorage
-        
-        const token = localStorage.getItem('authToken'); // Ganti sesuai dengan cara Anda menyimpan token autentikasi
-  
-      if (!token) {
-        // Jika tidak ada token, redirect ke halaman login
-        if (pathname !== "/login" && pathname !== "/register"){
+const DashboardPage = () => {
+  const router = useRouter();
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-            router.push('/login');
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      // Ensure this code only runs on the client-side
+      const checkUser = async () => {
+        const currentUser = auth.currentUser;
+        if (!currentUser) {
+          router.push("/login"); // Only redirect if user is not authenticated
+        } else {
+          // setUser(currentUser);
         }
-      }
-    }, [router]);
+        setLoading(false);
+      };
 
-    return null
-}
+      checkUser();
+    }
+  }, [router]);
+
+  if (loading) return <p>Loading...</p>;
+
+  // return <div>Welcome to the dashboard, {user?.email}</div>;
+  return null;
+};
+
+export default DashboardPage;
