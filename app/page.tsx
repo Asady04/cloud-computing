@@ -12,16 +12,6 @@ import { GithubIcon } from "@/components/icons";
 export default function HomePage() {
   const router = useRouter();
 
-  // useEffect(() => {
-  //   // Cek apakah user sudah login, misalnya cek token di localStorage
-  //   const token = localStorage.getItem('authToken'); // Ganti sesuai dengan cara Anda menyimpan token autentikasi
-
-  //   if (!token) {
-  //     // Jika tidak ada token, redirect ke halaman login
-  //     router.push('/login');
-  //   }
-  // }, [router]);
-
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
       <div className="inline-block max-w-xl text-center justify-center">

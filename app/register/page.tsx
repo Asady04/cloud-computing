@@ -43,47 +43,6 @@ export default function PricingPage() {
     }
   };
 
-  // const handleRegister = async () => {
-  //   if (!mounted) return; // Hanya jalankan jika komponen sudah mounted
-  //   setLoading(true);
-  //   setError('');
-
-  //   try {
-  //     const response = await fetch('https://cc-backend-weld.vercel.app/register', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({
-  //         email,
-  //         name,
-  //         nim,
-  //         password,
-  //         confirmPassword,
-  //       }),
-  //     });
-
-  //     const data = await response.json();
-
-  //     if (!response.ok) {
-  //       throw new Error(data.error);
-  //     }
-
-  //     // Tampilkan notifikasi sukses
-  //     window.alert('Akun berhasil dibuat');
-
-  //     // Redirect ke halaman login
-  //     router.push('/login');
-      
-  //   } catch (error) {
-  //     console.error(error); // Log error untuk debugging
-  //     const errorMessage = error instanceof Error ? error.message : String(error);
-  //     setError(errorMessage); // Set error yang lebih aman
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
   return (
     <div className="w-full md:w-1/2 lg:w-1/3 px-4 md:px-0">
       <Card className="px-2">

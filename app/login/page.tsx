@@ -39,43 +39,6 @@ export default function LoginPage() {
       setLoading(false);
     }
   };
-  // const handleLogin = async () => {
-  //   setLoading(true);
-  //   setError(null); // Reset error state
-
-  //   try {
-  //     const response = await fetch('https://cc-backend-weld.vercel.app/login', { // Ganti dengan URL backend Anda
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({ email, password }),
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error('Login failed: ' + (await response.text()));
-  //     }
-
-  //     const data = await response.json();
-  //     console.log('Login successful:', data);
-
-  //     // Simpan token di localStorage
-  //     localStorage.setItem('authToken', data.token); // Ganti dengan key sesuai kebutuhan Anda
-
-  //     // Menampilkan notifikasi login berhasil
-  //     window.alert('Login berhasil');
-
-  //     // Redirect ke halaman home setelah login berhasil
-  //     router.push('/'); // Menggunakan router untuk redirect
-  //   } catch (error) {
-  //     console.log('Type of error:', typeof error); // Cek tipe dari error
-  //     console.log('Error content:', error); // Cek isi dari error
-  //     const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
-  //     setError(errorMessage);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
 
   return (
     <div className="w-full md:w-1/2 lg:w-1/3 px-4 md:px-0">
