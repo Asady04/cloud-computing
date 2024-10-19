@@ -1,11 +1,20 @@
 // services/authService.ts
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, browserLocalPersistence, setPersistence } from "firebase/auth";
 import { auth, db } from "../firebaseConfig";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
 // Sign in user
 export const login = async (email: string, password: string) => {
-  return await signInWithEmailAndPassword(auth, email, password);
+  try {
+    // Set persistence to 'local', meaning it persists even after a page refresh
+    await setPersistence(auth, browserLocalPersistence);
+
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    return userCredential;
+  } catch (error) {
+    console.error("Error during login:", error);
+    throw error;
+  }
 };
 
 // Sign up user
