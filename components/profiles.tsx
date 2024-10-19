@@ -71,8 +71,8 @@ export default function Profiles() {
   ];
   return (
     <div className="w-full flex md:flex-row flex-col gap-3">
-      {profiles.map((profile) => (
-        <Card className="py-4 hover:-translate-y-1 duration-100">
+      {profiles.map((profile, index) => (
+        <Card key={index} className="py-4 hover:-translate-y-1 duration-100">
           <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
             <Image
               alt="Card background"

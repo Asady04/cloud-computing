@@ -119,7 +119,7 @@ export default function LoginPage() {
         <CardFooter>
           <div className="flex justify-between w-full">
             <Link href="/register">
-              <p className="text-red-800 text-sm">Don't have an account?</p>
+              <p className="text-red-800 text-sm">Don&apos;t have an account?</p>
             </Link>
             <Button
               variant="shadow"

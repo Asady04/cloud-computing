@@ -11,7 +11,6 @@ import { Navbar } from "@/components/navbar";
 import NavbarWrapper from "@/components/navbarWrapper";
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
-import LoginChecker from "@/components/loginCheck";
 config.autoAddCss = false
 
 export const metadata: Metadata = {
