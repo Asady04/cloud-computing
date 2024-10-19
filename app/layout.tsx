@@ -11,6 +11,7 @@ import { Navbar } from "@/components/navbar";
 import NavbarWrapper from "@/components/navbarWrapper";
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
+import LoginChecker from "@/components/loginCheck";
 config.autoAddCss = false
 
 export const metadata: Metadata = {
@@ -49,6 +50,7 @@ export default function RootLayout({
         <Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
           <div className="relative flex flex-col h-screen">
             <NavbarWrapper />
+            <LoginChecker/>
             <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
               {children}
             </main>

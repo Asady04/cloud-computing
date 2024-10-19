@@ -1,4 +1,5 @@
 "use client";
+import React, { useEffect, useState } from "react"; // Import React dan hooks
 import {
   Navbar as NextUINavbar,
   NavbarContent,
@@ -36,8 +37,51 @@ import {
 } from "@nextui-org/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/navigation"; // Import useRouter
 
 export const Navbar = () => {
+  const router = useRouter(); // Initialize router
+  interface UserData {
+    name: string;
+    email: string;
+    nim: string;
+    role: string;
+  }
+
+  // State untuk menyimpan data pengguna
+  const [userData, setUserData] = useState<UserData | null>(null); // Definisikan tipe
+
+
+  // Ambil data pengguna dari API
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch('http://localhost:4000/api/user', {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`, // Pastikan menambahkan token di sini
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        console.log('Fetched user data:', data); // Cek data yang diterima
+        setUserData(data); // Simpan data pengguna ke state
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('authToken'); // Hapus token dari localStorage
+    router.push('/login'); // Redirect ke halaman login
+  };
+
   const searchInput = (
     <Input
       aria-label="Search"
@@ -103,11 +147,16 @@ export const Navbar = () => {
           </Link>
           <ThemeSwitch />
         </NavbarItem>
-        {/* <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem> */}
         <NavbarItem className="hidden md:flex">
           <div className="flex justify-between gap-3 items-center">
             <div className="items-center text-default-700 text-right">
-              <p className="font-semibold">Hey, Al-baghdadi</p>
+              {userData ? ( // Tampilkan nama jika data ada
+                <>
+                  <p className="font-semibold">Hey, {userData.name}</p>
+                </>
+              ) : (
+                <p className="font-semibold">Hey, User</p> // Tampilkan default jika belum ada data
+              )}
             </div>
             <Dropdown>
               <DropdownTrigger>
@@ -116,15 +165,26 @@ export const Navbar = () => {
               <DropdownMenu aria-label="Static Actions">
                 <DropdownItem key="new">
                   <div>
-                    <p className="font-semibold">Jamal Albaghdadi</p>
-                    <p className="text-sm">jamaluddin@gmail.com</p>
-                    <p className="text-sm">1122334455</p>
+                    {userData ? ( // Tampilkan informasi pengguna jika data ada
+                      <>
+                        <p className="font-semibold">{userData.name}</p>
+                        <p className="text-sm">{userData.email}</p>
+                        {userData.role == 'ADMIN' ? (<p className="text-sm font-semibold text-red-800">{userData.role}</p>) : (<div><p className="text-sm">{userData.nim}</p><p className="text-sm font-semibold text-green-800">{userData.role}</p></div>)}
+                      </>
+                    ) : (
+                      <>
+                        <p className="font-semibold">User</p>
+                        <p className="text-sm">user@example.com</p>
+                        <p className="text-sm">NIM</p>
+                      </>
+                    )}
                   </div>
                 </DropdownItem>
                 <DropdownItem
                   key="logout"
                   className="text-danger"
                   color="danger"
+                  onClick={handleLogout} // Tambahkan event handler untuk logout
                 >
                   <div className="flex gap-1 items-center">
                     <p>Log Out</p>
@@ -158,7 +218,7 @@ export const Navbar = () => {
                       ? "danger"
                       : "foreground"
                 }
-                href="#"
+                href={item.href}
                 size="lg"
               >
                 {item.label}

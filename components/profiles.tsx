@@ -1,4 +1,6 @@
 "use client";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation"; // Gunakan next/navigation untuk navigasi
 import React from "react";
 import {
   Card,
@@ -16,6 +18,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram } from "@fortawesome/free-brands-svg-icons";
 
 export default function Profiles() {
+  // const router = useRouter();
+
+  // useEffect(() => {
+  //   // Cek apakah user sudah login, misalnya cek token di localStorage
+  //   const token = localStorage.getItem('authToken'); // Ganti sesuai dengan cara Anda menyimpan token autentikasi
+
+  //   if (!token) {
+  //     // Jika tidak ada token, redirect ke halaman login
+  //     router.push('/login');
+  //   }
+  // }, [router]);
   const [isLoaded, setIsLoaded] = React.useState(false);
 
   const profiles = [

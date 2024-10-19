@@ -32,28 +32,32 @@ export const siteConfig = {
     },
     {
       label: "Dashboard",
-      href: "/dashboard",
+      href: "/",
     },
     {
-      label: "Projects",
-      href: "/projects",
+      label: "About",
+      href: "/about",
     },
-    {
-      label: "Team",
-      href: "/team",
-    },
-    {
-      label: "Calendar",
-      href: "/calendar",
-    },
-    {
-      label: "Settings",
-      href: "/settings",
-    },
-    {
-      label: "Help & Feedback",
-      href: "/help-feedback",
-    },
+    // {
+    //   label: "Projects",
+    //   href: "/projects",
+    // },
+    // {
+    //   label: "Team",
+    //   href: "/team",
+    // },
+    // {
+    //   label: "Calendar",
+    //   href: "/calendar",
+    // },
+    // {
+    //   label: "Settings",
+    //   href: "/settings",
+    // },
+    // {
+    //   label: "Help & Feedback",
+    //   href: "/help-feedback",
+    // },
     {
       label: "Logout",
       href: "/logout",
